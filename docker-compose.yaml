@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: kinopoisk123
+      POSTGRES_DB: kino-poisk
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - "1337:5432" # Исправлен порт, чтобы он совпадал с портом в контейнере
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./templates:/root/templates # Поправлен путь к шаблонам
+      - ./static:/root/static # Поправлен путь к статическим файлам
+      - ./kinopoisk/controllers:/root/kinopoisk/controllers # Поправлен путь к контроллерам
+      - ./kinopoisk/database:/root/kinopoisk/database # Поправлен путь к базе данных
+    depends_on:
+      - db

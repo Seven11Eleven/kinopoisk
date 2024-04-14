@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детальная информация о фильме</title>
+    <link rel="stylesheet" href="/static/movie.css">
+</head>
+<body>
+    <div id="movieInfo" class="movie-info">
+        <!-- Сyда будет вставлена информация о фильме -->
+    </div>
+    <div id="reviewsContainer">
+        <!-- суда кароче рецензии -->
+    </div>   
+    
+    <div><button id="createReview">Написать рецензию</div>
+        <div id="updateForm" style="display: none;">
+            <label for="rateInput">Оценка, выберите от 1 до 10:</label>
+            <input type="text" id="rateInput" required><br><br>
+            <label for="reviewText">Напишите свою рецензию:</label>
+            <input type="text" id="reviewText" required><br><br>
+            <button id="submitUpdate">Отправить рецензию</button>
+        </div>
+        
+    <script src="/static/movie.js"></script>
+</body>
+</html>

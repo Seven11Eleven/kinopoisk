@@ -1,0 +1,337 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+
+
+  
+  body {
+    background-color: #ffffff;
+    font-family: "Lato", sans-serif;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* .header__container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 16px;
+    height: 60px;
+
+  } */
+
+  .header__navigation {
+    display: flex;
+    width: 100%;
+    height: 72px;
+    padding: 0px 36px 0px 46px;
+    background-color: #141414;
+    justify-content: space-between;
+    align-items: center; /* Чтобы выровнять элементы по вертикали */
+  }
+  
+  .pagination{
+    width: 27px; 
+    height: 27px;
+    border-radius: 50%; 
+    padding: 5px;
+    margin: 5px;
+    background-color: #ffffff;
+    border:none;
+  }
+  .searchLinse{
+        margin: 0; 
+        padding: 0 5px;
+        font-size: 0;
+        cursor: pointer;
+        border: 0;
+        background-color: transparent;
+    
+  }
+  
+  .searchButt:hover{
+    cursor: pointer;
+    background-color: grey;
+  }
+  .pagination:hover{
+    cursor: pointer;
+    color:#ffffff;
+    text-decoration: none;
+    background-color: grey;
+  }
+  .pagination.top,
+  .pagination.bottom{
+    
+    display: flex;
+    border: none;
+    background-color: #ffffff;
+
+    gap: 2px; /* Измените это значение на желаемое расстояние */
+  }
+  
+
+
+  
+  .logo__container {
+    font-weight: bold; /* Жирный текст для логотипа */
+  }
+  
+  .header__search {
+    width: 250px; /* Ширина поля поиска */
+    background-color: #373737;
+  }
+  .searchForm{
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  
+  .header__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 16px;
+    height: 60px;
+  }
+  
+  .styles_loginButton{
+    padding: 0 16px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18px;
+    cursor: pointer;
+    color: hsla(0, 0%, 100%, .6);
+    border: none;
+    outline: none;
+    background-color: unset;
+}
+  .header__logo {
+    font-size: 32px;
+    text-decoration: none;
+    color: #ffffff;
+  }
+  
+  .header__search {
+    font-size: 14px;
+    padding: 5px;
+    width: 250px;
+    border: 2px solid #1a191f;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  
+  .movie {
+    width: 240px;
+    margin: 10px;
+    position: relative;
+  }
+  
+  .movie__cover-inner {
+    position: relative;
+    height: 360px;
+  }
+  
+  .movie__cover {
+    max-width: 100%;
+    height: 100%;
+  }
+  
+  .movie__cover--darkened {
+    background-color: #000000;
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .movie__cover--darkened:hover {
+    background-color: grey;
+    cursor: pointer;
+  }
+  
+  .movie__info {
+    padding: 10px 0px;
+  }
+  
+  .movie__title {
+    font-size: 16px;
+    color: #000000;
+  }
+  
+  .movie__category {
+    font-size: 14px;
+    color: #000000;
+  }
+
+  .popular{
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .movie__average {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 0;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a191f;
+    color: #ffffff;
+    font-size: 14px;
+  }
+  
+  .movie__average--green {
+    border: 2px solid green;
+  }
+  
+  .movie__average--orange {
+    border: 2px solid orange;
+  }
+  
+  .movie__average--red {
+    border: 2px solid red;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: width 2s;
+  }
+  
+  .modal--show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal__card {
+    background-color: #ffffff;
+    max-width: 600px;
+    padding: 16px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+    background-color: #1a191f;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal__movie-backdrop {
+    width: 200px;
+    margin: 0 auto
+  }
+  
+  .modal__movie-info {
+    margin-left: 20px;
+  }
+  
+  .modal__button-close {
+    padding: 5px;
+    margin: 10px;
+    align-self: center;
+  }
+  
+  .modal__movie-site {
+    color: #ffd80e
+  }
+  
+  ul li {
+    padding: 5px;
+  }
+  
+  .stop-scrolling {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+.field {
+  background-color: #1a191f;
+}
+
+.login{
+    background-image: url('https://yastatic.net/s3/passport-auth-customs/customs/_/i6Qz5JEX.jpg');
+        background-size: cover; /* Растянуть изображение на всю область */
+        background-position: center;
+        background-attachment: fixed;
+
+    /* Отключение повторения изображения */
+    background-repeat: no-repeat;
+
+    /* Дополнительные свойства стиля */
+    color: #ffffff; /* Цвет текста на фоне */
+}
+.container__login{
+  position: fixed;
+  font-family: "YS Text", Arial, Helvetica, sans-serif;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1a191f; /* Цвет фона контейнера */
+    padding: 20px; /* Отступы внутри контейнера */
+    border-radius: 10px; /* Закругление углов */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень */
+}
+.field__input{
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      background: none;
+      border: 0 solid transparent;
+      box-sizing: border-box;
+      font-size: 100%;
+      margin: 0;
+      outline: 10px;
+      padding: 0;
+      position: relative;
+      vertical-align: top;
+      width: 100%;
+      z-index: 2;
+      border: 1px solid white; /* Устанавливаем белую обводку толщиной 1px */
+      border-radius: 5px; /* Закругляем углы */
+      color: white;
+}
+.header_Tyndex{
+  text-align:center;
+}
+.header_registr{
+  /* display: flex;
+  justify-content: space-around; */
+  text-align:center;
+}
+
+.register{
+  background-image: url('https://yastatic.net/s3/passport-auth-customs/customs/_/i6Qz5JEX.jpg');
+  background-size: cover; /* Растянуть изображение на всю область */
+  background-position: center;
+  background-attachment: fixed;
+
+  /* Отключение повторения изображения */
+  background-repeat: no-repeat;
+
+  /* Дополнительные свойства стиля */
+  color: #ffffff; /* Цвет текста на фоне */
+}

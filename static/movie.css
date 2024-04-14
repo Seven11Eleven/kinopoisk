@@ -1,0 +1,30 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+
+  
+  body {
+    background-color: #FFEBEB;
+    font-family: "Lato", sans-serif;
+  }
+
+
+.moviePhoto{
+    size: 15cm;
+    height: 50%;
+    width: 50%;
+  }
+
+.movie_desc{
+    font-size: larger;
+}
+
+.realPhoto{
+    size: 12cm;
+}
+
+.movie_year{
+    font-size: larger;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/profile.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Профиль в KinoIzdeu</title>
+</head>
+
+<body>
+    <header class="header__container">
+        <div id="userProfile">
+            <p id="userProfile__id">Профиль пользователя </p> 
+        </div>
+        <div class="profile-actions">
+            <button id="deleteAccount">Удалить аккаунт</button>
+            <button id="updateAccount">Изменить данные аккаунта</button>
+            <button id="logout">Выйти из аккаунта</button>
+        </div>
+        
+        
+    </header>
+    <div id="updateForm" style="display: none;">
+        <label for="newUsername">Новый ник:</label>
+        <input type="text" id="newUsername" required><br><br>
+        <label for="newEmail">Новая почта:</label>
+        <input type="email" id="newEmail" required><br><br>
+        <button id="submitUpdate">Обновить</button>
+    </div>
+    <div class="user-info">
+        <h2>Информация о пользователе:</h2>
+        <p id="username">Никнейм: </p>
+        <p id="email">Электронная почта: </p>
+        <p id="reviews">Количество рецензий: </p>
+    </div>
+    <div class="reviews">
+        <h2>Рецензии:</h2>
+        <div class="reviews_style">   
+        <div id="userReviews"></div>
+    </div>
+    </div>
+    
+    
+
+    <script src="/static/profile.js"></script>
+</body>
+
+
+
+

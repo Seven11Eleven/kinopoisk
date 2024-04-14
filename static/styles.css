@@ -1,0 +1,89 @@
+/* Reset CSS */
+html, body, h1, h2, h3, h4, h5, h6, p, ul, ol {
+    margin: 0;
+    padding: 0;
+}
+
+/* Шрифт */
+@font-face {
+    font-family: "Graphik Kinopoisk LC Web SB Regular";
+    src: url("https://db.onlinewebfonts.com/t/a1750a4dae8db954fdd595f313b3b34e.eot");
+    src: url("https://db.onlinewebfonts.com/t/a1750a4dae8db954fdd595f313b3b34e.eot?#iefix") format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/a1750a4dae8db954fdd595f313b3b34e.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/a1750a4dae8db954fdd595f313b3b34e.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/a1750a4dae8db954fdd595f313b3b34e.ttf") format("truetype"),
+    url("https://db.onlinewebfonts.com/t/a1750a4dae8db954fdd595f313b3b34e.svg#Graphik Kinopoisk LC Web SB Regular") format("svg");
+}
+
+body {
+    font-family: "Graphik Kinopoisk LC Web SB Regular", sans-serif; /* Используем шрифт для всего текста на странице */
+    background-color: #fff; /* Белый фон */
+    color: #000; /* Черный цвет текста */
+}
+
+/* Стили для заголовка */
+.header {
+    background-color: #f90; /* Оранжевый фон для заголовка */
+    color: #000; /* Черный цвет текста */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title {
+    margin: 0;
+}
+
+.search-input {
+    width: 200px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Стили для основного содержимого */
+.main-content {
+    padding: 20px;
+}
+
+.movie-info {
+    display: flex;
+    align-items: center;
+}
+
+.movie-poster {
+    width: 200px;
+    margin-right: 20px;
+}
+
+.movie-description {
+    flex: 1;
+}
+
+.movie-title {
+    margin-top: 0;
+}
+
+/* Стили для подвала */
+.footer {
+    background-color: #f90; /* Оранжевый фон для подвала */
+    color: #000; /* Черный цвет текста */
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-links li {
+    display: inline;
+    margin: 0 10px;
+}
+
+.footer-links a {
+    color: #000; /* Черный цвет ссылок */
+    text-decoration: none;
+}
