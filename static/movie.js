@@ -91,10 +91,6 @@ function displayMovieInfo(movieInfo) {
             htmlContent += `<div class="movie_desc">${description}</div>`;
         }
 
-        if (ratingKinopoisk) {
-            htmlContent += `<div class ="movie_rating"> ${ratingKinopoisk}</div>`;
-        }
-
         htmlContent += `<div class ="movie_year">Год выпуска: ${year}</div>`;
 
         if (endYear) {
@@ -115,6 +111,9 @@ function displayMovieInfo(movieInfo) {
             htmlContent += `<p>Жанры: ${genresList}</p>`;
         }
 
+        if (ratingKinopoisk) {
+            htmlContent += `<div class ="movie_rating"> ${ratingKinopoisk}</div>`;
+        }
         htmlContent += `
             <div class="moviePhoto">
                 <img src="${posterUrlPreview || '/static/KinoNotFound.png'}" alt="${nameRu}" class="realPhoto" width="200" height="300">
@@ -134,55 +133,65 @@ async function fetchMovieReviews(movieId) {
         if (!response.ok) {
             throw new Error('Failed to fetch movie reviews');
         }
-        return await response.json();
+        const reviews = await response.json();
+        // Для каждой рецензии загружаем информацию о пользователе
+        const reviewsWithUserInfo = await Promise.all(reviews.map(async review => {
+            const userInfoResponse = await fetchUserInfo(review.user_id);
+            if (!userInfoResponse) return null; // Если не удалось получить информацию о пользователе, пропускаем эту рецензию
+            const userInfo = await userInfoResponse.json();
+            return { ...review, user_name: userInfo.user_name }; // Добавляем имя пользователя к рецензии
+        }));
+        // Фильтруем от null значений (если не удалось получить информацию о пользователе)
+        return reviewsWithUserInfo.filter(review => review !== null);
     } catch (error) {
         console.error('Error fetching movie reviews:', error);
         return [];
     }
 }
 
-function displayMovieReviews(reviews) {
-    const reviewsContainer = document.getElementById('reviewsContainer');
-    if (!reviewsContainer) {
-        console.error('Reviews container not found');
-        return;
-    }
-
-    reviewsContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых рецензий
-
-    if (reviews.length === 0) {
-        reviewsContainer.textContent = 'Рецензий еще нет';
-        return;
-    }
-
-    const reviewsList = document.createElement('ul');
-    reviewsList.classList.add('reviews-list');
-
-    reviews.forEach(review => {
-        const listItem = document.createElement('li');
-        listItem.classList.add('review-item');
-        listItem.innerHTML = `
-            <div class="review-header">
-                <span class="review-rating">Рейтинг: ${review.rating}</span>
-                <span class="review-date">Дата: ${new Date(review.CreatedAt).toLocaleDateString()}</span>
-                <span class="review-author" data-user-id="${review.userId}">${review.user_name}</span> <!-- Вот тут использовано поле user_name -->
-            </div>
-            <div class="review-text">${review.text}</div>
-        `;
-        reviewsList.appendChild(listItem);
-    });
-
-    reviewsContainer.appendChild(reviewsList);
-
-    // Добавляем обработчик события для клика по никнейму пользователя
-    reviewsContainer.addEventListener('click', (event) => {
-        if (event.target.classList.contains('review-author')) {
-            const userId = event.target.dataset.userId;
-            window.location.href = `/profile/${userId}`; // Перенаправляем на профиль пользователя
+async function fetchUserInfo(userId) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/getUserInfo/${userId}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch user info');
         }
-    });
+        return response;
+    } catch (error) {
+        console.error('Error fetching user info:', error);
+        return null;
+    }
 }
 
+// Запрашиваем рецензии по ID фильма и отображаем на странице
+async function displayMovieReviews(movieId) {
+    try {
+        const reviews = await fetchMovieReviews(movieId);
+        const reviewsContainer = document.getElementById('reviewsContainer');
+        reviewsContainer.innerHTML = ''; // Очищаем контейнер перед добавлением новых рецензий
+        if (reviews.length === 0) {
+            reviewsContainer.textContent = 'Рецензий еще нет';
+            return;
+        }
+        const reviewsList = document.createElement('ul');
+        reviewsList.classList.add('reviews-list');
+        reviews.forEach(review => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('review-item');
+            listItem.innerHTML = `
+                <div class="review-header">
+                    <span class="review-rating">Рейтинг: ${review.rating}</span>
+                    <span class="review-date">Дата: ${new Date(review.CreatedAt).toLocaleDateString()}</span>
+                    <span class="review-author" data-user-id="${review.user_id}">${review.user_name}</span> <!-- Вот тут использовано поле user_name -->
+                </div>
+                <div class="review-text">${review.text}</div>
+            `;
+            reviewsList.appendChild(listItem);
+        });
+        reviewsContainer.appendChild(reviewsList);
+    } catch (error) {
+        console.error('Error displaying movie reviews:', error);
+    }
+}
 
 const movieId = window.location.pathname.split('/').pop();
 
@@ -191,7 +200,59 @@ fetchMovieInfo(movieId)
     .then(displayMovieInfo)
     .catch(error => console.error('Error fetching movie info:', error));
 
-// Запрашиваем рецензии по ID фильма и отображаем на странице
-fetchMovieReviews(movieId)
-    .then(displayMovieReviews)
-    .catch(error => console.error('Error fetching movie reviews:', error));
+// Отображаем рецензии на странице
+displayMovieReviews(movieId);
+
+document.getElementById('createReview').addEventListener('click', () => {
+    document.getElementById('createReview').style.display = 'none';
+    document.getElementById('updateForm').style.display = 'block';
+});
+
+document.getElementById('submitUpdate').addEventListener('click', async () => {
+    const movieId = window.location.pathname.split('/').pop();
+    const rateInput = document.getElementById('rateInput');
+    const rate = parseInt(rateInput.value);
+
+    if (isNaN(rate) || rate < 1 || rate > 10) {
+        alert('Пожалуйста, введите число от 1 до 10 в поле оценки.');
+        rateInput.focus(); // Переводим фокус обратно на поле ввода оценки
+        return;
+    }
+
+    const text = document.getElementById('reviewText').value;
+
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    if (!jwtToken) {
+        console.error('JWT token not found in localStorage');
+        return;
+    }
+
+    const reviewData = {
+        rating: rate,
+        text: text
+    };
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/addreview/${movieId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': jwtToken // Используем токен напрямую без "Bearer"
+            },
+            body: JSON.stringify(reviewData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to add review');
+        }
+
+        alert('Рецензия успешно добавлена');
+        document.getElementById('reviewForm').reset();
+        // Обновляем список рецензий после добавления новой
+        displayMovieReviews(movieId);
+    } catch (error) {
+        console.error('Error adding review:', error);
+        alert('Произошла ошибка при добавлении рецензии');
+    }
+});

@@ -5,8 +5,8 @@ import (
 
 
 	"github.com/gin-gonic/gin"
-	"github.com/kinopoisk/controllers"
-	"kinopoisk/database"
+	"github.com/Seven11Eleven/kinopoisk/controllers"
+	"github.com/Seven11Eleven/kinopoisk/database"
 	
 )
 

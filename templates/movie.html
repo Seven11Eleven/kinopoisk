@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Детальная информация о фильме</title>
     <link rel="stylesheet" href="/static/movie.css">
+    
 </head>
 <body>
     <div id="movieInfo" class="movie-info">
@@ -17,9 +18,10 @@
     <div><button id="createReview">Написать рецензию</div>
         <div id="updateForm" style="display: none;">
             <label for="rateInput">Оценка, выберите от 1 до 10:</label>
-            <input type="text" id="rateInput" required><br><br>
+            <input type="number" id="rateInput" min="1" max="10" required>
             <label for="reviewText">Напишите свою рецензию:</label>
-            <input type="text" id="reviewText" required><br><br>
+            <textarea id="reviewText" required minlength="3" maxlength="500"></textarea>
+
             <button id="submitUpdate">Отправить рецензию</button>
         </div>
         

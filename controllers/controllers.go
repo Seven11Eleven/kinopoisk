@@ -9,8 +9,8 @@ import(
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"kinopoisk/database"
-	"kinopoisk/models"
+	"github.com/Seven11Eleven/kinopoisk/database"
+	"github.com/Seven11Eleven/kinopoisk/models"
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 )

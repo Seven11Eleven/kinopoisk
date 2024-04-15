@@ -7,6 +7,7 @@ services:
     environment:
       POSTGRES_PASSWORD: kinopoisk123
       POSTGRES_DB: kino-poisk
+      POSTGRES_HOST: db
     volumes:
       - ./data/db:/var/lib/postgresql/data
     ports:
@@ -18,10 +19,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: kinopoisk123
+      POSTGRES_DB: kino-poisk
+      POSTGRES_HOST: db
     volumes:
       - ./templates:/root/templates # Поправлен путь к шаблонам
       - ./static:/root/static # Поправлен путь к статическим файлам
-      - ./kinopoisk/controllers:/root/kinopoisk/controllers # Поправлен путь к контроллерам
-      - ./kinopoisk/database:/root/kinopoisk/database # Поправлен путь к базе данных
+      - ./kinopoisk/controllers:/root/controllers # Поправлен путь к контроллерам
+      - ./kinopoisk/database:/root/database # Поправлен путь к базе данных
     depends_on:
-      - db
+      db:
+        condition: service_healthy
